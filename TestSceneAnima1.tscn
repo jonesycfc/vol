@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://dvdparc6gxi1m"]
+
+[ext_resource type="Script" uid="uid://ccq2840s0jmer" path="res://Scenes/TestSceneAnima.gd" id="1_syjjj"]
+[ext_resource type="PackedScene" uid="uid://dftrl2whsda8r" path="res://Scenes/Objects/Ball/BallScript.tscn" id="2_3lwti"]
+[ext_resource type="PackedScene" uid="uid://17ye2w0fy8ay" path="res://Scenes/PlayerPawnScene.tscn" id="2_syjjj"]
+[ext_resource type="Script" uid="uid://bwoj65epsrx3h" path="res://Reuse/FollowCam.gd" id="3_syjjj"]
+[ext_resource type="Script" uid="uid://btq1b6lod8n7t" path="res://Inputs/AnimationTestInputs.gd" id="5_xh8by"]
+[ext_resource type="Resource" uid="uid://dcpa6aw7shif4" path="res://Anims/Resources/Spike.tres" id="6_npm4g"]
+[ext_resource type="Script" uid="uid://1nqfj70yq7xb" path="res://Scenes/MatchKeeper.gd" id="7_syjjj"]
+[ext_resource type="Script" uid="uid://c2pp16ledkls2" path="res://Scenes/TeamCoordinator.gd" id="8_team_coord"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2uk16"]
+albedo_color = Color(0.6204995, 0.58205354, 0.97360384, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f2uhd"]
+material = SubResource("StandardMaterial3D_2uk16")
+size = Vector3(20, 20, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ok2w"]
+size = Vector3(200, 200, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2yr04"]
+size = Vector3(0.2, 0.7, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jcngy"]
+albedo_color = Color(1, 0.8466836, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_81x18"]
+material = SubResource("StandardMaterial3D_jcngy")
+size = Vector3(0.2, 0.7, 10)
+
+[node name="TestSceneAnima1" type="Node3D" unique_id=945040420]
+script = ExtResource("1_syjjj")
+
+[node name="BallScriptAnima" parent="." unique_id=20953200 instance=ExtResource("2_3lwti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 17.71, -3)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=226071159 node_paths=PackedStringArray("target", "targets")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.476, 1.3210001, 3.1009998)
+fov = 40.0
+script = ExtResource("3_syjjj")
+focus_mode = 1
+target = NodePath("../PlayerPawnScene")
+targets = [NodePath("../PlayerPawnScene"), NodePath("../BallScriptAnima")]
+follow_x = false
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=775198439]
+transform = Transform3D(1, 0, 0, 0, -0.017767968, 0.99984217, 0, -0.99984217, -0.017767968, 0, 13.276489, -0.19946289)
+light_energy = 0.315
+spot_range = 20.657
+spot_attenuation = -0.89
+spot_angle_attenuation = 1.1095701
+
+[node name="PlayerPawnScene" parent="." unique_id=869442234 instance=ExtResource("2_syjjj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8190002, 0.316, -7)
+_name = "1"
+
+[node name="PlayerPawnScene3" parent="." unique_id=617405800 instance=ExtResource("2_syjjj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0811806, 0.316, -7)
+_name = "2"
+
+[node name="PlayerPawnScene2" parent="." unique_id=1360066407 instance=ExtResource("2_syjjj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8190002, 0.316, 2)
+_tteam = 1
+_name = "3"
+
+[node name="PlayerPawnScene4" parent="." unique_id=1626737752 instance=ExtResource("2_syjjj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4980497, 0.316, 2)
+_tteam = 1
+_name = "4"
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=859809492]
+transform = Transform3D(1, 0, 0, 0, -0.017767968, 0.99984217, 0, -0.99984217, -0.017767968, 0, -1, 0)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=626617702]
+mesh = SubResource("BoxMesh_f2uhd")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1886527044]
+shape = SubResource("BoxShape3D_0ok2w")
+metadata/_edit_lock_ = true
+
+[node name="Net" type="StaticBody3D" parent="." unique_id=1169265182]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Net" unique_id=1833196076]
+shape = SubResource("BoxShape3D_2yr04")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Net" unique_id=499210318]
+mesh = SubResource("BoxMesh_81x18")
+metadata/_edit_lock_ = true
+
+[node name="Inputs" type="Node" parent="." unique_id=1327156177]
+script = ExtResource("5_xh8by")
+spike = ExtResource("6_npm4g")
+
+[node name="MatchKeeper" type="Node" parent="." unique_id=2031175459]
+script = ExtResource("7_syjjj")
+
+[node name="HomeCoordinator" type="Node" parent="." unique_id=1581234520 groups=["team_coordinators"]]
+script = ExtResource("8_team_coord")
+
+[node name="AwayCoordinator" type="Node" parent="." unique_id=544509891 groups=["team_coordinators"]]
+script = ExtResource("8_team_coord")
+team = 1
